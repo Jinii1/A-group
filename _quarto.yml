@@ -1,0 +1,16 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "기역조"
+  navbar:
+    left:
+      - href: a-group.qmd
+        text: "기역"
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
