@@ -1,38 +1,150 @@
 ---
-title: "Finley Malloc"
-toc: false
-about:
-  id: hero-heading
-  template: jolla
-  image: logo.webp
-  links:
-    - icon: twitter
-      text: twitter
-      href: https://twitter.com
-    - icon: github
-      text: Github
-      href: https://github.com/yeonyejin/A-group
+title: "주제"
+author: "ㄱ 조 - 강남규 권효은 김연예진 김연진"
 ---
 
+```{python}
+import pandas as pd
+import numpy as np
 
-:::{#hero-heading}
+df = pd.read_csv("bs.csv")
+before_name = []
+after_name = []
+lst_mean12_19 = []
 
-Finley Malloc is the Chief Data Scientist at Wengo Analytics. When not innovating on data platforms, Finley enjoys spending time unicycling and playing with her pet iguana.
+df
+```
 
-## Education
+원본 데이터 불러오기 및 리스트 초기화
 
-University of California, San Diego | San Diego, CA
-PhD in Mathematics | Sept 2011 - June 2015
+1. `before_name`: 변경 전 이름 List
+2. `after_name`: 변경 후 이름 List
+3. `lst_mean12_19`: 12 ~ 19년도 청년층의 시도별 모의 출산율 평균 Series List
 
-Macalester College | St. Paul MA
-B.A in Economics | Sept 2007 - June 2011
+```{python}
+for i in range(12, 23):
+  before_name.append("20" + str(i))
+  before_name.append("20" + str(i) + ".1")
+  before_name.append("20" + str(i) + ".2")
+  before_name.append("20" + str(i) + ".3")
+  before_name.append("20" + str(i) + ".4")
+  before_name.append("20" + str(i) + ".5")
+  before_name.append("20" + str(i) + ".6")
+  after_name.append(str(i) + "_1519")
+  after_name.append(str(i) + "_2024")
+  after_name.append(str(i) + "_2529")
+  after_name.append(str(i) + "_3034")
+  after_name.append(str(i) + "_3539")
+  after_name.append(str(i) + "_4044")
+  after_name.append(str(i) + "_4549")
 
-## Experience
+print("before_name: " + str(before_name) + "\n" + "after_name: " + str(after_name))
+```
 
-Wengo Analytics | Head Data Scientist | April 2018 - present
+이름 변경을 위한 문자열 추가
 
-GeoScynce | Chief Analyst | Sept 2012 - April 2018
+EX) "2020" → "20_1519": 20년도 15 ~ 19세
 
-:::
+"2020.1" → "20_2024": 20년도 20 ~ 24세
 
-### This content appears below the formatted about page content.
+
+```{python}
+br = df.copy()
+br.drop(0, inplace = True)
+br.reset_index(drop = True, inplace = True)
+br
+```
+
+복사본 br을 만들고, 열을 통합하기 위해 0번 열을 제거함
+
+EX) 2020 + 15 ~ 19세 → 20_1519
+
+0번 열을 제거하여 1번부터 시작하므로, 추후 인덱싱 작업을 위해 `.reset_index`을 사용하여 재정렬
+
+```{python}
+for i in range(0, len(before_name)):
+  br.rename(columns = {before_name[i] : after_name[i]}, inplace = True)
+
+print(br.head(5))
+```
+
+의미를 통합하기 위해, 전체 열의 이름을 변경
+
+`before_name`의 길이 만큼 구문을 반복 (`len(before_name) = 77`이므로, `i`에는 0에서 77까지의 수가 들어감)
+
+EX) br의 열 이름이 `before_name[0]`에서 `after_name[0]`으로 변경 "2020" → "20_1519"
+
+```{python}
+br[after_name] = br[after_name].apply(pd.to_numeric)
+
+type(br["12_1519"][6])
+```
+
+데이터의 타입이 문자열이므로, 계산을 위해 Type을 float64로 변경함
+
+```{python}
+br = br.assign(
+  mean20 = (br["20_2024"] + br["20_2529"] + br["20_3034"]) / 3,
+  mean21 = (br["21_2024"] + br["21_2529"] + br["21_3034"]) / 3,
+  mean22 = (br["22_2024"] + br["22_2529"] + br["22_3034"]) / 3)
+  
+br.head(5)
+```
+
+20 ~ 22년까지 최근 3년의 청년층(20 ~ 34세) 모의 연령별 출산율의 평균을 계산하여 열로 추가
+
+```{python}
+for i in range(0, 56, 7):
+  lst_mean12_19.append((br[after_name[i + 1]] + br[after_name[i + 2]] + br[after_name[i + 3]]) / 3)
+
+lst_mean12_19
+```
+
+2012 ~ 2019년까지의 청년층 평균은 중간 계산을 위한 데이터이므로, 열로 추가하지 않고 List로 보관 (각 요소는 Series)
+
+`range(0, 56, 7)` Start: 0, End: 55, Step: 7이므로 0, 7, 14, 21 ...이 `i`로 들어감
+
+1519, 2024, 2529, 3034, 3539, 4044, 4549 연령 구간이 총 7개이므로, `i`가 1519 인덱스에 있을 때 `i + 1`(2024), `i + 2`(2529) `i + 3`(3034)을 해야 청년층에 해당하는 이름을 가져올 수 있음
+
+처음 `i = 0`일 때 12년도를 계산하고, 다음 `i = 7`에서는 13년도 계산을 수행함
+
+EX) 12년도의 청년층 평균 계산: "12_1519" + "12_2024" + "12_2529" / 3
+
+결과로 나온 평균을 `lst_mean12_19` 리스트에 요소로 추가
+
+따라서, `lst_mean12_19`에는 **12 ~ 19년도 청년층의 시도별 모의 출산율 평균 Series List**가 들어 있음
+
+(`br["mean12"]`, `br["mean13"]`, `br["mean14"]` ...에 해당하는 Series를 열로 추가하지 않고 리스트에 보관했다고 생각)
+
+```{python}
+for i in range(12, 20):
+  br["compare" + str(i)] = np.where(lst_mean12_19[i - 12].mean() <= lst_mean12_19[i - 12], "large", "small")
+
+print(br.head(5))
+```
+
+각 시도별 청년층 모의 출산율의 평균이 전국 청년층 평균과 비교하여 큰지 작은지 비교
+
+12 ~ 19년은 `lst_mean12_19` 리스트를 활용해 계산
+
+`range(12, 20)`으로 `i`에 12, 13, 14, ... 19가 들어감
+
+"compare12" ~ "compare19" 열을 추가하고, 시도별 평균과 전체 평균을 비교함
+
+EX) `i = 12`일 때
+    `lst_mean12_19[0].mean() <= lst_mean12_19[0]`: 12년도 전체 평균(숫자) <= 12년도 시도별 평균(Series)을 비교함
+    
+```{python}
+br["compare20"] = np.where(br["mean20"].mean() <= br["mean20"], "large", "small")
+br["compare21"] = np.where(br["mean21"].mean() <= br["mean21"], "large", "small")
+br["compare22"] = np.where(br["mean22"].mean() <= br["mean22"], "large", "small")
+
+br.head(5)
+```
+
+최근 3년의 평균은 List가 아닌 DataFrame의 열로 가지고 있으므로, 추출하여 비교 계산
+
+```{python}
+br
+```
+
