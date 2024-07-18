@@ -103,7 +103,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
 
+
+
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
 
 
 <link rel="stylesheet" href="styles.css">
@@ -172,7 +175,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div id="66ecc73b" class="cell" data-execution_count="1">
+<div id="fcac6a3f" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -182,7 +185,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>lst_mean12_19 <span class="op">=</span> []</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="161">
+<div class="cell-output cell-output-display" data-execution_count="1">
 <div>
 
 
@@ -683,7 +686,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>after_name</code>: 변경 후 이름 List</li>
 <li><code>lst_mean12_19</code>: 12 ~ 19년도 청년층의 시도별 모의 출산율 평균 Series List</li>
 </ol>
-<div id="5c55223a" class="cell" data-execution_count="2">
+<div id="131dc11b" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">12</span>, <span class="dv">23</span>):</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  before_name.append(<span class="st">"20"</span> <span class="op">+</span> <span class="bu">str</span>(i))</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  before_name.append(<span class="st">"20"</span> <span class="op">+</span> <span class="bu">str</span>(i) <span class="op">+</span> <span class="st">".1"</span>)</span>
@@ -709,12 +712,12 @@ after_name: ['12_1519', '12_2024', '12_2529', '12_3034', '12_3539', '12_4044', '
 <p>이름 변경을 위한 문자열 추가</p>
 <p>EX) “2020” → “20_1519”: 20년도 15 ~ 19세</p>
 <p>“2020.1” → “20_2024”: 20년도 20 ~ 24세</p>
-<div id="66f33b67" class="cell" data-execution_count="3">
+<div id="7030b0a2" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>br <span class="op">=</span> df.copy()</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>br.drop(<span class="dv">0</span>, inplace <span class="op">=</span> <span class="va">True</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>br.reset_index(drop <span class="op">=</span> <span class="va">True</span>, inplace <span class="op">=</span> <span class="va">True</span>)</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>br</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="163">
+<div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 
 
@@ -1188,7 +1191,7 @@ after_name: ['12_1519', '12_2024', '12_2529', '12_3034', '12_3539', '12_4044', '
 <p>복사본 br을 만들고, 열을 통합하기 위해 0번 열을 제거함</p>
 <p>EX) 2020 + 15 ~ 19세 → 20_1519</p>
 <p>0번 열을 제거하여 1번부터 시작하므로, 추후 인덱싱 작업을 위해 <code>.reset_index</code>을 사용하여 재정렬</p>
-<div id="a12e5ec6" class="cell" data-execution_count="4">
+<div id="7d4ce9b0" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="bu">len</span>(before_name)):</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  br.rename(columns <span class="op">=</span> {before_name[i] : after_name[i]}, inplace <span class="op">=</span> <span class="va">True</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1221,23 +1224,23 @@ after_name: ['12_1519', '12_2024', '12_2529', '12_3034', '12_3539', '12_4044', '
 <p>의미를 통합하기 위해, 전체 열의 이름을 변경</p>
 <p><code>before_name</code>의 길이 만큼 구문을 반복 (<code>len(before_name) = 77</code>이므로, <code>i</code>에는 0에서 77까지의 수가 들어감)</p>
 <p>EX) br의 열 이름이 <code>before_name[0]</code>에서 <code>after_name[0]</code>으로 변경 “2020” → “20_1519”</p>
-<div id="edbdfc57" class="cell" data-execution_count="5">
+<div id="32b189ba" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>br[after_name] <span class="op">=</span> br[after_name].<span class="bu">apply</span>(pd.to_numeric)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(br[<span class="st">"12_1519"</span>][<span class="dv">6</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="165">
+<div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>numpy.float64</code></pre>
 </div>
 </div>
 <p>데이터의 타입이 문자열이므로, 계산을 위해 Type을 float64로 변경함</p>
-<div id="92ac6247" class="cell" data-execution_count="6">
+<div id="55bf3d1f" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>br <span class="op">=</span> br.assign(</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  mean20 <span class="op">=</span> (br[<span class="st">"20_2024"</span>] <span class="op">+</span> br[<span class="st">"20_2529"</span>] <span class="op">+</span> br[<span class="st">"20_3034"</span>]) <span class="op">/</span> <span class="dv">3</span>,</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  mean21 <span class="op">=</span> (br[<span class="st">"21_2024"</span>] <span class="op">+</span> br[<span class="st">"21_2529"</span>] <span class="op">+</span> br[<span class="st">"21_3034"</span>]) <span class="op">/</span> <span class="dv">3</span>,</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  mean22 <span class="op">=</span> (br[<span class="st">"22_2024"</span>] <span class="op">+</span> br[<span class="st">"22_2529"</span>] <span class="op">+</span> br[<span class="st">"22_3034"</span>]) <span class="op">/</span> <span class="dv">3</span>)</span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>br.head(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="166">
+<div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 
 
@@ -1397,12 +1400,12 @@ after_name: ['12_1519', '12_2024', '12_2529', '12_3034', '12_3539', '12_4044', '
 </div>
 </div>
 <p>20 ~ 22년까지 최근 3년의 청년층(20 ~ 34세) 모의 연령별 출산율의 평균을 계산하여 열로 추가</p>
-<div id="fb30218b" class="cell" data-execution_count="7">
+<div id="0feecf2a" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">56</span>, <span class="dv">7</span>):</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  lst_mean12_19.append((br[after_name[i <span class="op">+</span> <span class="dv">1</span>]] <span class="op">+</span> br[after_name[i <span class="op">+</span> <span class="dv">2</span>]] <span class="op">+</span> br[after_name[i <span class="op">+</span> <span class="dv">3</span>]]) <span class="op">/</span> <span class="dv">3</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>lst_mean12_19</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="167">
+<div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>[0     71.766667
  1     55.033333
  2     61.333333
@@ -1565,7 +1568,7 @@ after_name: ['12_1519', '12_2024', '12_2529', '12_3034', '12_3539', '12_4044', '
 <p>결과로 나온 평균을 <code>lst_mean12_19</code> 리스트에 요소로 추가</p>
 <p>따라서, <code>lst_mean12_19</code>에는 <strong>12 ~ 19년도 청년층의 시도별 모의 출산율 평균 Series List</strong>가 들어 있음</p>
 <p>(<code>br["mean12"]</code>, <code>br["mean13"]</code>, <code>br["mean14"]</code> …에 해당하는 Series를 열로 추가하지 않고 리스트에 보관했다고 생각)</p>
-<div id="88a956ac" class="cell" data-execution_count="8">
+<div id="2a85f31d" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">12</span>, <span class="dv">20</span>):</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  br[<span class="st">"compare"</span> <span class="op">+</span> <span class="bu">str</span>(i)] <span class="op">=</span> np.where(lst_mean12_19[i <span class="op">-</span> <span class="dv">12</span>].mean() <span class="op">&lt;=</span> lst_mean12_19[i <span class="op">-</span> <span class="dv">12</span>], <span class="st">"large"</span>, <span class="st">"small"</span>)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1600,13 +1603,13 @@ after_name: ['12_1519', '12_2024', '12_2529', '12_3034', '12_3539', '12_4044', '
 <p><code>range(12, 20)</code>으로 <code>i</code>에 12, 13, 14, … 19가 들어감</p>
 <p>“compare12” ~ “compare19” 열을 추가하고, 시도별 평균과 전체 평균을 비교함</p>
 <p>EX) <code>i = 12</code>일 때 <code>lst_mean12_19[0].mean() &lt;= lst_mean12_19[0]</code>: 12년도 전체 평균(숫자) &lt;= 12년도 시도별 평균(Series)을 비교함</p>
-<div id="51b19019" class="cell" data-execution_count="9">
+<div id="97f56337" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>br[<span class="st">"compare20"</span>] <span class="op">=</span> np.where(br[<span class="st">"mean20"</span>].mean() <span class="op">&lt;=</span> br[<span class="st">"mean20"</span>], <span class="st">"large"</span>, <span class="st">"small"</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>br[<span class="st">"compare21"</span>] <span class="op">=</span> np.where(br[<span class="st">"mean21"</span>].mean() <span class="op">&lt;=</span> br[<span class="st">"mean21"</span>], <span class="st">"large"</span>, <span class="st">"small"</span>)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>br[<span class="st">"compare22"</span>] <span class="op">=</span> np.where(br[<span class="st">"mean22"</span>].mean() <span class="op">&lt;=</span> br[<span class="st">"mean22"</span>], <span class="st">"large"</span>, <span class="st">"small"</span>)</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>br.head(<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="169">
+<div class="cell-output cell-output-display" data-execution_count="9">
 <div>
 
 
@@ -1766,9 +1769,9 @@ after_name: ['12_1519', '12_2024', '12_2529', '12_3034', '12_3539', '12_4044', '
 </div>
 </div>
 <p>최근 3년의 평균은 List가 아닌 DataFrame의 열로 가지고 있으므로, 추출하여 비교 계산</p>
-<div id="f668cbbc" class="cell" data-execution_count="10">
+<div id="f2b4e9a5" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>br</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="170">
+<div class="cell-output cell-output-display" data-execution_count="10">
 <div>
 
 

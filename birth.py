@@ -49,5 +49,63 @@ br["compare20"] = np.where(br["mean20"].mean() <= br["mean20"], "large", "small"
 br["compare21"] = np.where(br["mean21"].mean() <= br["mean21"], "large", "small")
 br["compare22"] = np.where(br["mean22"].mean() <= br["mean22"], "large", "small")
 
+pd.set_option('display.max_rows', None)
+pd.set_option('display.max_columns', None)
 
 br
+
+pd.set_option('display.max.rows', None)
+pd.set_option('display.max.columns', None)
+
+br3 = br.iloc[[0]]
+# type(br3["21_2024"][0]) #데이터프레임으로 나오는지 확인하기 위한 코드
+br3 = br3.iloc[:, 57:] # 20-22년도 데이터 추출
+
+br3 = br3.transpose()
+br3
+
+br3.info()
+
+br3 = br3.rename(columns = {0 : 'birth_rate'})
+br3 = br3.rename_axis(columns = {'' : 'year'}, index = None)
+br3
+br3 = br3.reset_index().rename(columns={'index': 'year'})
+
+br3['number'] = np.where(br3['year']\
+                  .isin(['20_2024', '20_2529', '20_3034', '21_2024', '21_2529', '21_3034', '22_2024', '22_2529', '22_3034']), '1', '2')
+
+
+br3['number'] = br3['number'].apply(pd.to_numeric)
+
+br3_youth_rate = br3.query('number == 1')['birth_rate'].mean()
+br3_non_youth_rate = br3.query('number == 2')['birth_rate'].mean()
+
+br3_20 = br3[:7] # 20년도 데이터프레임
+br3_20
+
+
+
+!pip install seaborn
+import seaborn as sns
+import matplotlib.pyplot as plt
+sns.barplot(data = br3_20, x = 'year', y = 'birth_rate')
+br3.plot.bar(rot=0)
+
+plt.xlabel('yaer', size = 15) # x축 제목 설정
+plt.ylabel('birth_rate', size = 15, color = 'red', rotation = 90) #y축 제목 설정, 빨간 글씨
+plt.title('2020data', size= 15) # 차트 제목 설정
+plt.xticks(data = br3_20, x, ['20_1519','20_2024','20_2529'])
+plt.show()
+plt.clf()
+
+br3_new = br3['br3_youth_rate'].value_counts()
+
+
+
+
+sum(br3_20)
+
+
+sns.barplot(data = br3_youth_rate, )
+
+
