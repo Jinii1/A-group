@@ -229,12 +229,57 @@ br2_non_youth_rate
 ```
 
 
+20-22와 같은 코드로 12-14년도 청년층과 비청년층 출산율 비교
+
+```{python}
+br3= br.iloc[:, 1:21] ## 12-14년도 데이터 추출
+br3 = br3.iloc[[0]]
+br3
+
+br3 = br3.transpose()
+br3.info
+br3
+
+br3 = br3.rename(columns = {0 : 'birth_rate'})
+br3 = br3.rename_axis(columns = {'' : 'year'}, index = None)
+br3
+br3 = br3.reset_index().rename(columns={'index': 'year'})
+
+br3['number'] = np.where(br3['year']\
+                  .isin(['12_2024', '12_2529', '12_3034', '13_2024', '13_2529', '13_3034', '14_2024', '14_2529', '14_3034']), '1', '2')
+br3
+
+br3.info()
+br3['number'] = br3['number'].apply(pd.to_numeric)
+br3
+
+br3_youth_rate = br3.query('number == 1')['birth_rate'].mean()
+br3_non_youth_rate = br3.query('number == 2')['birth_rate'].mean()
+
+br3_youth_rate
+br3_non_youth_rate
+
+```
 
 
 
 
 ```{python}
-br2
-br2.info()
+import seaborn as sns
+import matplotlib.pyplot as plt
+sns.barplot(x=['Youth', 'Non-Youth'], y=[br3_youth_rate, br3_non_youth_rate])
+plt.show()
+plt.clf()
+
+```
+
+```{python}
+import seaborn as sns
+sns.barplot(x=['Youth', 'Non-Youth'], y=[br2_youth_rate, br2_non_youth_rate])
+plt.xlabel('Age Group', fontsize=12)
+plt.ylabel('Mean Birth Rate', fontsize=12)
+plt.title('Mean Birth Rate Comparison', fontsize=15)
+plt.show()
+
 ```
 
