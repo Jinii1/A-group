@@ -83,29 +83,35 @@ br3_non_youth_rate = br3.query('number == 2')['birth_rate'].mean()
 br3_20 = br3[:7] # 20년도 데이터프레임
 br3_20
 
+#youth와 not youth 그룹을 만들어서 평균 값을 만듦.
 
+br3_20_y = br3.iloc[1:4, 1:2].mean()
+br3_20_ny = pd.concat([br3.iloc[0:1,1:2], br3.iloc[4:7, 1:2]]).mean()
+br4 = pd.concat([br3_20_y, br3_20_ny])
 
-!pip install seaborn
+data = {
+    'age'  : ['br3_20_yy', 'br3_20_nyy'],
+    'count': [38.56, 12.575 ]
+}
+
+br5 = pd.DataFrame(data)
+ 
+ 
 import seaborn as sns
 import matplotlib.pyplot as plt
-sns.barplot(data = br3_20, x = 'year', y = 'birth_rate')
-br3.plot.bar(rot=0)
+sns.countplot(data=br5, x='age')
+plt.xlabel('Age', size = 15)
+plt.ylabel('Count', size = 15)
+plt.title('Count of Ages', size =15)
 
-plt.xlabel('yaer', size = 15) # x축 제목 설정
-plt.ylabel('birth_rate', size = 15, color = 'red', rotation = 90) #y축 제목 설정, 빨간 글씨
-plt.title('2020data', size= 15) # 차트 제목 설정
-plt.xticks(data = br3_20, x, ['20_1519','20_2024','20_2529'])
 plt.show()
-plt.clf()
-
-br3_new = br3['br3_youth_rate'].value_counts()
 
 
 
+import seaborn as sns
+import matplotlib.pyplot as plt
+sns.barplot(data = [br4], x = 'year', y = 'birth_rate')
 
-sum(br3_20)
-
-
-sns.barplot(data = br3_youth_rate, )
+sns.countplot(data = br4, x = 'age')
 
 
