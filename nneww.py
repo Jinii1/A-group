@@ -136,7 +136,6 @@ br4['rate1'].plot.hist()
 br3 = br2.groupby('number', as_index = False) \
          .agg(mean_age = ('birthrate'==1 , 'mean'))
 
-
 import seaborn as sns
 import matplotlib.pyplot as plt
 sns.barplot(x=['Youth', 'Non-Youth'], y=[br3_youth_rate, br3_non_youth_rate])
