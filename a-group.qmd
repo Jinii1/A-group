@@ -265,7 +265,6 @@ br3_non_youth_rate
 
 
 ```{python}
-<<<<<<< HEAD
 br2_youth_rate = br2.query('number == 1')['birth_rate'].mean()
 br2_non_youth_rate = br2.query('number == 2')['birth_rate'].mean()
 
@@ -281,11 +280,6 @@ br3 = br2.groupby('number', as_index = False) \
          .agg(mean_age = ('birthrate'==1 , 'mean'))
 
 
-
-
-
-
-=======
 import seaborn as sns
 import matplotlib.pyplot as plt
 sns.barplot(x=['Youth', 'Non-Youth'], y=[br3_youth_rate, br3_non_youth_rate])
@@ -301,7 +295,7 @@ plt.xlabel('Age Group', fontsize=12)
 plt.ylabel('Mean Birth Rate', fontsize=12)
 plt.title('Mean Birth Rate Comparison', fontsize=15)
 plt.show()
->>>>>>> 20b012518b877ca66ccbe2b3d967f090d41cdefa
+
 
 ```
 
