@@ -66,6 +66,7 @@ br["compare22"] = np.where(br["mean22"].mean() <= br["mean22"], "large", "small"
 
 br.head(5)
 br
+
 br2 = br.iloc[[0]]
 type(br2["21_2024"][0])
 br2 = br2.iloc[:, 57:78] # 20-22년도 데이터 추출
@@ -73,7 +74,7 @@ br2 = br2.iloc[:, 57:78] # 20-22년도 데이터 추출
 br2
 
 br2 = br2.transpose()
-br2.info
+br2.info()
 br2
 
 br2 = br2.rename(columns = {0 : 'birth_rate'})
@@ -82,11 +83,7 @@ br2
 br2 = br2.reset_index().rename(columns={'index': 'year'})
 
 br2['number'] = np.where(br2['year']\
-                  .isin(['20_2024', '20_2529', '20_3034', '21_2024', '21_2529', '21_3034', '22_2024', '22_2529', '22_3034']), '1', '2')
-br2
-
-br2.info()
-br2['number'] = br2['number'].apply(pd.to_numeric)
+                  .isin(['20_2024', '20_2529', '20_3034', '21_2024', '21_2529', '21_3034', '22_2024', '22_2529', '22_3034']), 1, 2)
 br2
 
 br2_youth_rate = br2.query('number == 1')['birth_rate'].mean()
@@ -109,11 +106,7 @@ br3
 br3 = br3.reset_index().rename(columns={'index': 'year'})
 
 br3['number'] = np.where(br3['year']\
-                  .isin(['12_2024', '12_2529', '12_3034', '13_2024', '13_2529', '13_3034', '14_2024', '14_2529', '14_3034']), '1', '2')
-br3
-
-br3.info()
-br3['number'] = br3['number'].apply(pd.to_numeric)
+                  .isin(['12_2024', '12_2529', '12_3034', '13_2024', '13_2529', '13_3034', '14_2024', '14_2529', '14_3034']), 1, 2)
 br3
 
 br3_youth_rate = br3.query('number == 1')['birth_rate'].mean()
@@ -122,19 +115,12 @@ br3_non_youth_rate = br3.query('number == 2')['birth_rate'].mean()
 br3_youth_rate
 br3_non_youth_rate
 
-br2_youth_rate = br2.query('number == 1')['birth_rate'].mean()
-br2_non_youth_rate = br2.query('number == 2')['birth_rate'].mean()
-
-
 br4 = pd.DataFrame({'rate1' : [36.21, 12.89]},
                     index = ['br2_youth','br2_non_youth'])
                     
 br4.reset_index(drop=True, inplace=True) 
 br4['rate1'].plot.hist()
 
-
-br3 = br2.groupby('number', as_index = False) \
-         .agg(mean_age = ('birthrate'==1 , 'mean'))
 
 import seaborn as sns
 import matplotlib.pyplot as plt

@@ -90,6 +90,8 @@ br = br.assign(
   mean22 = (br["22_2024"] + br["22_2529"] + br["22_3034"]) / 3)
   
 br.head(5)
+br
+
 ```
 
 20 ~ 22년까지 최근 3년의 청년층(20 ~ 34세) 모의 연령별 출산율의 평균을 계산하여 열로 추가
@@ -151,15 +153,16 @@ br
 
 
 전국 모의 연령별 출산율을 비교하기 위해 iloc 함수를 이용하여 0번째 행만 추출
-(데이터프레임으로 제대로 나왔는지 확인하기 위해 type()을 사용하였는데 생략 가능)
-
-2020년부터 2022년까지의 청년과 비청년 출산율을 비교하려고 함
+데이터프레임으로 제대로 나왔는지 확인하기 위해 type()을 사용
+2020년부터 2022년까지 지난 3년치 데이터를 한 번에 묶어 청년과 비청년 출산율을 비교하려고 함
 그래서 2020 ~ 2022년도까지의 데이터를 추출하기 위해 iloc 함수를 사용
-행은 그대로 출력하고 열은 57번째 열부터 끝까지 데이터 추출
+해당 데이터가 어느 열에 있는지 확인하기 위해 br2.info() 사용용
+그 후 행은 그대로 출력하고 열은 57번째 78번째까지 데이터 추출
 
 ``` {python}
 br2 = br.iloc[[0]]
 type(br2["21_2024"][0])
+br2.info()
 br2 = br2.iloc[:, 57:78] # 20-22년도 데이터 추출
 
 
@@ -167,17 +170,17 @@ br2
 
 ```
 
-행과 열을 바꿔주고 싶어서 transpose 함수 사용
+보기 쉽게 만들기 위해 행렬을 뒤집는 transpose 함수 사용
 
 ``` {python}
 br2 = br2.transpose()
-br2.info
 br2
 
 ```
 
 0으로 되어 있던 변수를 모의 연령별출산율을 의미하는 birth_rate로 표시
 맨 첫 번째 열 이름이 지정되어 있지 않아서 year이라는 변수로 지정하기 위해 reset_index 사용
+rest_index 사용시 기존의 인덱스가 새로운 열로 추가되고, 새로운 기본 인덱스가 생성됨
 
 ``` {python}
 br2 = br2.rename(columns = {0 : 'birth_rate'})
@@ -188,27 +191,15 @@ br2 = br2.reset_index().rename(columns={'index': 'year'})
 ```
 
 
-청년층과 비청년층을 구분하기 위해 np.where을 사용
-number라는 변수에 청년층 (20-34세) 데이터를 1로 할당하고 나머지를 2로 할당
+청년층과 비청년층을 구분하고자 조건에 따라 값을 선택할 수 있는  np.where 함수  사용
+number라는 변수에 청년층 (20-34세) 데이터를 1로 할당하고 그렇지 않은 경우 2로 할당
 
 ```{python}
 br2['number'] = np.where(br2['year']\
-                  .isin(['20_2024', '20_2529', '20_3034', '21_2024', '21_2529', '21_3034', '22_2024', '22_2529', '22_3034']), '1', '2')
+                  .isin(['20_2024', '20_2529', '20_3034', '21_2024', '21_2529', '21_3034', '22_2024', '22_2529', '22_3034']), 1, 2)
 br2
                   
 ```
-
-info 함수로 확인한 결과 number가 object임을 발견
-apply(pd.to_numeric) 을 이용하여 int로 변환
-
-``` {python}
-br2.info()
-br2['number'] = br2['number'].apply(pd.to_numeric)
-br2
-
-```
-
-
 
 number라는 변수를 생성하여 청년을 1로, 비청년을 2로 표시
 따라서 청년층의 출산율을 알아보기 위해서는 br2 데이터에서 number == 1를 추출하여 평균을 구함
@@ -265,19 +256,12 @@ br3_non_youth_rate
 
 
 ```{python}
-br2_youth_rate = br2.query('number == 1')['birth_rate'].mean()
-br2_non_youth_rate = br2.query('number == 2')['birth_rate'].mean()
-
-
 br4 = pd.DataFrame({'rate1' : [36.21, 12.89]},
                     index = ['br2_youth','br2_non_youth'])
                     
 br4.reset_index(drop=True, inplace=True) 
 br4['rate1'].plot.hist()
 
-
-br3 = br2.groupby('number', as_index = False) \
-         .agg(mean_age = ('birthrate'==1 , 'mean'))
 
 
 import seaborn as sns
