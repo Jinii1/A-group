@@ -166,7 +166,7 @@ type(br2.iloc[15:18, 1:2].mean())
 b
 br4 = pd.concat([br3_20_y, br3_20_ny])
 
-
+dkfsldfkd
 
 
 
