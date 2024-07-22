@@ -269,3 +269,25 @@ plt.show()
 
 ```
 
+지금 청년층의 출산율이 낮아지는데 지역별로 청년층의 출산율 감소 근황을 보자
+
+**
+
+```{python}
+br[['시군구별', "mean20"]].sort_values("mean20", ascending = False).head()
+br[['시군구별', "mean21"]].sort_values("mean21", ascending = False).head()
+br[['시군구별', "mean22"]].sort_values("mean22", ascending = False).head()
+
+br[['시군구별', "mean20"]].sort_values("mean20").head()
+br[['시군구별', "mean21"]].sort_values("mean21").head()
+br[['시군구별', "mean22"]].sort_values("mean22").head()
+```
+
+**각 도시 청년층의 평균모의출산율 그래프**
+
+```{python}
+import matplotlib.pyplot as plt
+plt.clf()
+br["mean20"].plot.bar()
+plt.show()
+```
