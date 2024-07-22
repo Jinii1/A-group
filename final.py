@@ -115,24 +115,13 @@ br3_non_youth_rate = br3.query('number == 2')['birth_rate'].mean()
 br3_youth_rate
 br3_non_youth_rate
 
-br4 = pd.DataFrame({'rate1' : [36.21, 12.89]},
-                    index = ['br2_youth','br2_non_youth'])
-                    
-br4.reset_index(drop=True, inplace=True) 
-br4['rate1'].plot.hist()
-
-
-import seaborn as sns
 import matplotlib.pyplot as plt
-sns.barplot(x=['Youth', 'Non-Youth'], y=[br3_youth_rate, br3_non_youth_rate])
-plt.show()
-plt.clf()
-
 import seaborn as sns
-sns.barplot(x=['Youth', 'Non-Youth'], y=[br2_youth_rate, br2_non_youth_rate])
+
+sns.barplot(x=['12_14Youth', '20_22Youth','12_14Non-Youth', '20_22Non-Youth'], y=[br3_youth_rate,br2_youth_rate, br3_non_youth_rate, br2_non_youth_rate])
 plt.xlabel('Age Group', fontsize=12)
 plt.ylabel('Mean Birth Rate', fontsize=12)
-plt.title('Mean Birth Rate Comparison', fontsize=15)
+plt.title('12-14/20-22 Mean Birth Rate Comparison', fontsize=15)
 plt.show()
 
 
