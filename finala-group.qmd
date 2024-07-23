@@ -189,9 +189,8 @@ br2
 ``` {python}
 br2 = br2.rename(columns = {0 : 'birth_rate'})
 br2 = br2.rename_axis(columns = {'' : 'year'}, index = None)
-br2
 br2 = br2.reset_index().rename(columns={'index': 'year'})
-
+br2
 ```
 
 **np.where함수로 청년층과 비청년층 구분**
@@ -254,7 +253,7 @@ print('비청년: ', br3_non_youth_rate)
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-data = data = pd.DataFrame({
+data = pd.DataFrame({
     'Age Group': ['12_14Youth', '20_22Youth', '12_14Non-Youth', '20_22Non-Youth'],
     'Mean Birth Rate': [br3_youth_rate, br2_youth_rate, br3_non_youth_rate, br2_non_youth_rate],
     'Youth': ['Youth', 'Youth', 'Non-Youth', 'Non-Youth']
@@ -308,6 +307,7 @@ plt.ylabel('Mean Birth Rate 2020', fontsize=12)
 plt.title('Mean Birth Rate  2020년도 시군구별 ', fontsize=15)
 plt.show()
 ```
+
 ```{python}
 new = br[['시군구별', 'mean21']].sort_values("mean21", ascending=False)
 plt.figure(figsize=(7, 3))
