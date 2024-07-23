@@ -284,6 +284,7 @@ br[['시군구별', "mean22"]].sort_values("mean22").head()
 ```
 
 **각 도시 청년층의 평균모의출산율 그래프**
+20년도
 
 ```{python}
 import matplotlib.pyplot as plt
@@ -291,3 +292,26 @@ plt.clf()
 br["mean20"].plot.bar()
 plt.show()
 ```
+
+21년도
+```{python}
+import matplotlib.pyplot as plt
+plt.clf()
+br["mean21"].plot.bar()
+plt.show()
+
+
+```
+
+
+22년도
+```{python}
+import matplotlib.pyplot as plt
+plt.clf()
+br["mean22"].plot.bar()
+plt.show()
+
+
+```
+
+
