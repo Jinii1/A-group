@@ -115,11 +115,6 @@ br3
 
 br3.info()
 br3['number'] = br3['number'].apply(pd.to_numeric)
-br3
-  .isin(['20_2024', '20_2529', '20_3034', '21_2024', '21_2529', '21_3034', '22_2024', '22_2529', '22_3034']), '1', '2')
-
-
-br3['number'] = br3['number'].apply(pd.to_numeric)
 
 
 br3_youth_rate = br3.query('number == 1')['birth_rate'].mean()
@@ -161,6 +156,3 @@ import matplotlib.pyplot as plt
 sns.barplot(data = [br4], x = 'year', y = 'birth_rate')
 
 sns.countplot(data = br4, x = 'age')
-
-
-
